@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>To Do App</title>
+
+	<link rel="icon" href="{% static 'todo/img/favicon.png' %}" type="image/png">
+
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300&display=swap" rel="stylesheet">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" href="{% static 'todo/style.css' %}">
+</head>
+
+<body>
+
+	<div class="container-fluid" id="wrapper">
+
+		<div class="row">
+			<div class="mx-auto col-lg-6">
+				<div class="card">
+					<div class="card-body">
+						<div align="center">
+							<img src="{% static 'todo/img/logo.png' %}" width="250px" style="margin: 20px;" />
+						</div>
+
+						<form action="{% url 'add' %}" method="POST" role="form">
+							{% csrf_token %}
+							<div class="form-group">
+								<div class="input-group">
+									{{ form.text }}
+									<span class="input-group-btn">
+										<button type="submit" class="btn btn-success" id="add-btn">Add to list</button>
+									</span>
+								</div>
+							</div>
+						</form>
+
+						<div class="row">
+							<div class="col-lg-6 col-sm-12" style="margin-bottom: 5px">
+								<a style="text-decoration: none" href="{% url 'deleteComplete' %}">
+									<button type="button" class="btn btn-warning btn-block">
+										<i class="fa fa-trash"></i> Delete Completed
+									</button>
+								</a>
+							</div>
+							<div class="col-lg-6 col-sm-12" style="margin-bottom: 5px">
+								<a style="text-decoration: none" href="{% url 'deleteAll' %}">
+									<button type="button" class="btn btn-danger btn-block">
+										<i class="fa fa-trash"></i> Delete All
+									</button>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<ul class="list-group t20">
+					{% for todo in todo_list %}
+						{% if todo.complete %}
+							<li class="list-group-item todo-completed">{{ todo.text }}</li>
+						{% else %}
+							<a style="text-decoration: none" href="{% url 'complete' todo.id %}"><li class="list-group-item">{{ todo.text }}</li></a>
+						{% endif %}
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+
+		<footer>
+			<div class="row pad">
+				<div class="col-lg-12 text-center">
+					<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/CPanel_logo.svg/1280px-CPanel_logo.svg.png" width="100px"/>
+					<img src="https://cdn.pixabay.com/photo/2014/05/07/15/19/django-339744_960_720.png" width="100px"/> <br>
+					<strong>Created with <font color="red"><i class="fa fa-heart"></i></font> by <a href="https://rafat.me" target="_blank" style="text-decoration: none; color: #000">Rafat Hossain</a></strong>
+				</div>
+			</div>
+		</footer>
+	</div>
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+	</script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+	</script>
+</body>
+
+</html>
