@@ -1,5 +1,6 @@
 asgiref==3.8.1
 Django==5.0.7
+django-environ==0.11.2
 exceptiongroup==1.2.1
 h11==0.14.0
 h2==4.1.0

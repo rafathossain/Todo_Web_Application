@@ -1,0 +1,22 @@
+version: '3'
+
+networks:
+  todo_app_tier:
+    driver: bridge
+
+services:
+  todo_app_web:
+    container_name: todo_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ./deployment/start-app
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    ports:
+      - "127.0.0.1:20002:8001"
+    networks:
+      - todo_app_tier
