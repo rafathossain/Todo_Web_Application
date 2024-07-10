@@ -35,6 +35,8 @@ DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
+CSRF_TRUSTED_ORIGINS = ['https://todolist.rafat.me']
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
