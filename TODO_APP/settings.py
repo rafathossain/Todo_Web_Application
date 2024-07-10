@@ -22,20 +22,19 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '9ru6_t_%)g2zl(@_aka*oyt#kuji58llgf=cx=&fo7^g=q2cde'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
 # Application definition
-
 INSTALLED_APPS = [
-    'todo_list',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'todo_list',
 ]
 
 MIDDLEWARE = [
@@ -71,25 +70,17 @@ WSGI_APPLICATION = 'TODO_APP.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
+DATABASES = {
+    # Production configuration
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'rafatme_todolist',
+        'HOST': '103.174.50.37',
+        'PORT': '3306',
+        'USER': 'rafatme_todolist',
+        'PASSWORD': 'aHh8ikibC3syiLxa'
     }
-else:
-    DATABASES = {
-        # Production configuration
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'rafatme_todolist',
-            'HOST': 'localhost',
-            'PORT': '3306',
-            'USER': 'rafatme_todolist',
-            'PASSWORD': 'aHh8ikibC3syiLxa'
-        }
-    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -125,8 +116,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'public/static')
+STATIC_URL = 'static/'
+MEDIA_URL = 'media/'
 
-MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
